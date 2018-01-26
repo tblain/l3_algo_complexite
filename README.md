@@ -23,7 +23,7 @@ faut ajouter, puis à rédiger le code sous les commentaires correspondants.
 plusieurs lignes, mais il n'est pas possible de 
 les imbriquer (et donc de placer des `/* ... */` dans un commentaire) :
 
-```C++
+```cpp
 /* commentaire sur une ligne */
 /* commentaire
    sur deux lignes */
@@ -32,7 +32,7 @@ les imbriquer (et donc de placer des `/* ... */` dans un commentaire) :
 Il est aussi possible en plus de rajouter de courts commentaire en utilisant `//`. 
 Une fois écrit `//`, le reste de la ligne n'est plus interprété.
 
-```C++
+```cpp
 int a ; //un commentaire de fin de ligne
 ```
 
@@ -68,7 +68,7 @@ la documentation du `C++`.
 Comme mentionné ci dessus, chaque type primitif est stocké sur un certain nombre
 d'octets en mémoire. Lorsque vous écrirez :
 
-```C++
+```cpp
 int variable = 12 ;
 ```
 
@@ -84,7 +84,7 @@ même type de donnée. Un tableau peut être alloué statiquement ou dynamiqueme
 L'allocation dynamique sera abordée plus tard. Un tableau peut être alloué
 statiquement via :
 
-```C++
+```cpp
 int tableau[4] ;
 ```
 
@@ -98,7 +98,7 @@ dynamique](#alloc_dyn_tableau)
 
 Il est possible d'accéder à un tableau en utilisant les crochets `[` et `]`.
 
-```C++
+```cpp
 int tableau[4] ;
 tableau[0] = 1 ;
 tableau[3] = 2 ;
@@ -111,7 +111,7 @@ tableau[2 = tableau[0] ;
 Les instructions principales permettant de faire varier le fil d'éxécution d'un
 programme en fonction de tests sont les suivantes :
 
-```C++
+```cpp
 if(test) {
   /* code execute en cas de test vrai */
 } else {
@@ -136,7 +136,7 @@ do {
 
 Le comportement par défaut en `C++` est la *copie*. Par exemple dans le code :
 
-```C++
+```cpp
 int a = 5 ;
 int b = a ;
 b = 12 ;
@@ -154,7 +154,7 @@ variable. Dans le code précédent, pour faire en sorte que la variable `b` soit
 une référence sur la variable `a` et partage les mêmes octets, il aurait ainsi
 fallu écrire :
 
-```C++
+```cpp
 int a = 5 ;
 int & b = a ;
 b = 12 ;
@@ -177,7 +177,7 @@ ou à la procédure. Ainsi, une fonction modifiant la valeur de ses paramètre n
 modifiera pas la valeur des variables utilisées pour fournir ces paramètres dans
 la fonction appelante. C'est cette stratégie qui est appliquée en `C++`.
 
-```C++
+```cpp
 void f(int a) {
   a = a+1 ;
 }
@@ -222,7 +222,7 @@ de sa portée, ou si vous voulez éviter la copie de données volumineuses pass�
 en paramètre. Vous pouvez pour cela utiliser les références en paramètre de
 fonctions:
 
-```C++
+```cpp
 
 void f(int & ref) {
   ref = ref + 1 ;
@@ -242,14 +242,14 @@ mémoire possède une *adresse*. L'adresse d'un objet en `C++` est l'adresse du
 premier octet servant à stocker cet objet. Vous pouvez manipuler des adresses en
 utilisant le symbole `*`. Per exemple, l'instruction
 
-```C++
+```cpp
 int * a ;
 ```
 
 crée une variable qui stockera *l'adresse* d'un entier. Étant donné un objet en
 `C++`, il est possible d'obtenir son adresse via le symbole `&`. Par exemple :
 
-```C++
+```cpp
 int a = 10 ;
 int * pa = &a ;
 ```
@@ -259,7 +259,7 @@ Attention ici `a` et `pa` ne sont pas deux noms pour la même chose : la variabl
 `pa` est le nom d'une case mémoire contenant l'adresse d'une autre case mémoire
 contenant un entier.
 
-```C++
+```cpp
 int a = 10 ;
 int * pa = &a ;
 // pa = 10 ; //erreur : pb n'est pas un entier
@@ -269,7 +269,7 @@ L'opération consistant à utiliser une adresse pour accéder à la case mémoir
 correspondante s'appelle le *déréférencement*. Cette opération est réalisée en
 utilisant également le symbole `*`.
 
-```C++
+```cpp
 int a = 10 ;
 int * pa = &a ;
 int b = *pa ; //b prend la valeur 10
@@ -300,7 +300,7 @@ de sa *portée*, matérialisée par les accolades (`{`, `}`).
 Les paramètres d'une fonction sont également limités à la portée de cette
 fonction :
 
-```C++
+```cpp
 int f(int a) {
   int b = 10 ;
   int c = 0 ;
@@ -346,7 +346,7 @@ l'adresse de la zone allouée est perdue, et vous ne pourrez plus accéder à la
 zone, ou la libérer pour faire de la place en mémoire. Une allocation typique
 d'un objet sur le tas a donc la forme :
 
-```C++
+```cpp
 int * a = (int *) malloc(sizeof(int)) ;
 ```
 
@@ -362,7 +362,7 @@ des autres, il n'y a pas d'espace vide entre les données). Il est donc possible
 de réserver un tableau dans le tas en allouant simplement le nombre d'octets
 nécessaire pour *l'ensemble* des données du tableau :
 
-```C++
+```cpp
 /* allocation d'un tableau de 10 entiers */
 int * tab = (int *) malloc(10*sizeof(int)) ;
 ```
@@ -370,7 +370,7 @@ int * tab = (int *) malloc(10*sizeof(int)) ;
 Les données sont ensuite accessibles comme d'habitude en utilisant les crochets
 (`[`, `]`) :
 
-```C++
+```cpp
 for(int i = 0; i < 10; ++i) {
   tab[i] = 2*i ;
 }
@@ -387,7 +387,7 @@ nombre d'octets à libérer. Quelque part, en sous main, le nombre d'octets
 correspondants à l'adresse a été enregistré. Vous pouvez ainsi libérer la
 mémoire allouée par les deux instructions précédentes via :
 
-```C++
+```cpp
 free(a) ;
 free(tab) ;
 ```
@@ -405,7 +405,7 @@ produit une adresse qu'il faut récupérer. À la différence de `malloc` cette
 adresse est correctement typée par rapport au type de l'objet alloué.
 
 <a name="alloc_dyn_tableau"></a>
-```C++
+```cpp
 int * a = new int ;
 int * tab = new int[10] ;
 ```
@@ -414,7 +414,7 @@ new suffit. Comme précédemment, chaque utilisation de `new` doit être un
 jour compensée par l'utilisation de `delete`. La suppression des variables
 précédentes se fait via :
 
-```C++
+```cpp
 delete a ;
 delete[] tab ;
 ```
@@ -432,7 +432,7 @@ méthodes pour manipuler votre nouveau type de données.
 
 Les classes et structures se déclarent via
 
-```C++
+```cpp
 class nom_classe {
   /* ... */
 } ;
@@ -445,7 +445,7 @@ struct nom_structure {
 Dans la définition d'une classe ou d'une structure, les mots clé `public` et
 `private` permettent de définir ce qui sera accessible ou non pour votre classe
 
-```C++
+```cpp
 class nom_classe {
 
   /* ... */ //ici tout est inaccessible
@@ -479,7 +479,7 @@ dans une classe tout est privé, alors que dans une structure tout est public.
 
 Un exemple de déclaration de structure pourrait être :
 
-```C++
+```cpp
 class Fusee {
 
   public :
@@ -515,7 +515,7 @@ class Fusee {
 
 Le code des méthodes de cette structure devra ensuite être fourni via
 
-```C++
+```cpp
 
 Fusee::Fusee() {
   /* ... */
@@ -551,7 +551,7 @@ structure, et vous pourrez l'obtenir via `sizeof(Fusee)`.  Il est ensuite
 possible de déclarer un objet de type structure et d'accéder à ses champs via la
 syntaxe :
 
-```C++
+```cpp
 /* allocation sur la pile */
 Fusee f ;
 /* le . permet d'acceder aux champs et methodes de la structure */
@@ -572,7 +572,7 @@ Une classe peut être définie récursivement, tant qu'elle ne contient que des
 *adresses* ou des *références* sur des structures similaires. Sinon, il serait bien impossible
 de déterminer le `sizeof` de la structure pour cause de récursion
 
-```C++
+```cpp
 class Personne {
   int num_secu ;
   Personne * parent1 ;

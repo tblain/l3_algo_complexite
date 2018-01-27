@@ -1,16 +1,31 @@
-# Lifap6 -- Liste chaînées
+# Lifap6 — Liste chaînées
 
 Ce TP a pour but de vous rafraîchir la mémoire sur la programmation en `C++` et
 la conception de structures de données. Il prépare une séquence de TP à venir
 sur les Skip-Lists qui sont une évolution des liste chaînées.
 
-## Rappels
+## Index
+
+1. [Listes chaînées](#listes_chainees)
+1. [Rappels de `C++`](#rappels)
+    1. [Commentaires](#commentaires)
+    1. [Types primitifs](#types_primitifs)
+    1. [Case mémoire](#case_memoire)
+    1. [Tableau](#tableau)
+    1. [Structures de contrôle](#structures_de_controle)
+    1. [Références](#references)
+    1. [Passage par valeur](#passage_par_valeur)
+    1. [Adresses](#adresses)
+    1. [Allocation dynamique](#allocation_dynamique)
+    1. [Classes et structures](#classes_et_structures)
+
 <a name="rappels"></a>
+## Rappels
 
 Cette section comporte quelques rappels de base de programmation en `C++`.
 
-### Commentaires
 <a name="commentaires"></a>
+### Commentaires
 
 Les commentaires sont des portions de fichier qui ne sont pas interprétées par
 le compilateur. Ils vous permettent de documenter votre code, et de rajouter des
@@ -19,7 +34,7 @@ commentaires dans votre code. Une bonne façon de développer consiste par exemp
 à commencer par remplir une fonction avec des commentaire indiquant ce qu'il
 faut ajouter, puis à rédiger le code sous les commentaires correspondants.
 
-\En `C++` les commentaires sont délimités par `/*` et `*/`. Ils peuvent faire 
+En `C++` les commentaires sont délimités par `/*` et `*/`. Ils peuvent faire 
 plusieurs lignes, mais il n'est pas possible de 
 les imbriquer (et donc de placer des `/* ... */` dans un commentaire) :
 
@@ -38,14 +53,13 @@ int a ; //un commentaire de fin de ligne
 
 Dans la suite de ces rappels, vous saurez donc identifier les commentaires.
 
-### Types primitifs
 <a name="types_primitifs"></a>
+### Types primitifs
 
 Le `C++` propose un certain nombre de types primitifs. Durant ce cours, les
 types que vous serez le plus couramment ammenés à employer sont :
 
 * `int` des entiers positifs ou négatifs
-* `unsigned int` des entiers uniquement positifs
 * `float` des nombres réels (rationnels en réalité) positifs ou négatifs
 * `char` des carractères
 
@@ -53,17 +67,16 @@ Notez que tous ces types sont stockés sur un certain nombre d'octets que vous
 pouvez consulter via l'instruction `sizeof(type)`. Du fait que le nombre
 d'octets est limité, il n'est pas possible de représenter tous les entiers ou
 tous les réels avec ces types. Par exemple 3 milliards est trop grand pour être
-stocké dans un type `int`, mais peut se stocker dans un type `unsigned int`. Par
-contre 5 milliards n'est stockable via aucun de ces deux types. De même les
-réels ne peuvent pas être d'une précision infinie, et seuls certains nombres
-rationnels peuvent être stockés exactement. Le nombre $\pi$ par exemple n'est
-pas rationnel et ne pourra pas être stocké exactement.
+stocké dans un type `int`. De même les réels ne peuvent pas être d'une précision
+infinie, et seuls certains nombres rationnels peuvent être stockés exactement.
+Le nombre $\pi$ par exemple n'est pas rationnel et ne pourra pas être stocké
+exactement.
 
 D'autres types primitifs existent, vous les trouverez rapidement en consultant
 la documentation du `C++`.
 
-### Cases mémoire
 <a name="case_memoire"></a>
+### Cases mémoire
 
 Comme mentionné ci dessus, chaque type primitif est stocké sur un certain nombre
 d'octets en mémoire. Lorsque vous écrirez :
@@ -77,12 +90,11 @@ vous pouvez imaginer qu'une zone en mémoire sera réservée de la bonne taille
 toute la suite de votre programme le mot clé `variable` sera remplacé par le
 contenu de ces 4 octets, interprétés comme un entier.
 
+<a name="tableau"></a>
 ### Tableau
 
 Un tableau est un groupe de plusieurs cases mémoire consécutives contenant le
-même type de donnée. Un tableau peut être alloué statiquement ou dynamiquement.
-L'allocation dynamique sera abordée plus tard. Un tableau peut être alloué
-statiquement via :
+même type de donnée. Il peut être alloué statiquement via :
 
 ```cpp
 int tableau[4] ;
@@ -105,8 +117,8 @@ tableau[3] = 2 ;
 tableau[2 = tableau[0] ;
 ```
 
-### Structures de contrôle
 <a name="structures_de_controle"></a>
+### Structures de contrôle
 
 Les instructions principales permettant de faire varier le fil d'éxécution d'un
 programme en fonction de tests sont les suivantes :
@@ -131,8 +143,8 @@ do {
 } while(test) ;
 ```
 
-### Références
 <a name="references"></a>
+### Références
 
 Le comportement par défaut en `C++` est la *copie*. Par exemple dans le code :
 
@@ -165,8 +177,8 @@ cette image vous aide, vous pouvez considérer qu'une référence consiste à do
 un pseudonyme à une variable. Dans la suite du programme, le nom initial ou le
 pseudonyme peuvent tous les deux être utilisés pour les mêmes octets.
 
-### Appels de fonctions
-<a name="appels_de_fonctions"></a>
+<a name="passage_par_valeur"></a>
+### Passage par valeur
 
 On parle de *passage de paramètres* lorsqu'on appelle une fonction en lui
 fournissant des paramètres. Selon les langages de programmation, il existe de
@@ -232,8 +244,8 @@ int a = 1 ;
 f(a) ; /* a vaut maintenant 2 */
 ```
 
-### Adresses
 <a name="adresses"></a>
+### Adresses
 
 Une autre notion, souvent comparée aux références est la notion d'*adresse*,
 souvent mentionnée sous le nom de *pointeur*. Votre mémoire manipule la mémoire,
@@ -286,8 +298,8 @@ peut être utilisée pour faire quelques chose qu'il est difficile de réaliser
 élégament via l'autre notion. Il est donc essentiel que vous sachiez maîtriser
 les deux.
 
-### Allocation dynamique
 <a name="allocation_dynamique"></a>
+### Allocation dynamique
 
 En `C++`, la mémoire vous est souvent présentée comme découpée en plusieurs zones. Vous
 utiliserez généralement la *pile* et le *tas*.
@@ -421,8 +433,8 @@ delete[] tab ;
 
 Notez bien l'utilisation de `delete[]` pour faire écho à `new <type>[]`.
 
-### Classes et structures
 <a name="classes_et_structures"></a>
+### Classes et structures
 
 Les classes et structures sont à la base de l'élaboration de structures de données
 complexes. Une classe (à votre niveau) permet d'agglomérer plusieurs types existants pour

@@ -6,18 +6,315 @@ sur les Skip-Lists qui sont une évolution des liste chaînées.
 
 ## Index
 
+1. [Récupérer le code](#recuperer_le_code)
+    * [Forge de l'université](#forge)
+    * [Duplication du dépôt](#fork)
+    * [Sauvegarder votre travail](#git_base)
+    * [Intégration continue](#integration_continue)
 1. [Listes chaînées](#listes_chainees)
+    * [Cellules](#classe_cellule)
+    * [Liste](#classe_liste)
+    * [Fonctionnalités](#fonctionnalites)
+    * [Recopie](#recopie)
+    * [Ajout en queue](#ajout_en_queue)
+    * [Serpent](#serpent)
 1. [Rappels de `C++`](#rappels)
-    1. [Commentaires](#commentaires)
-    1. [Types primitifs](#types_primitifs)
-    1. [Case mémoire](#case_memoire)
-    1. [Tableau](#tableau)
-    1. [Structures de contrôle](#structures_de_controle)
-    1. [Références](#references)
-    1. [Passage par valeur](#passage_par_valeur)
-    1. [Adresses](#adresses)
-    1. [Allocation dynamique](#allocation_dynamique)
-    1. [Classes et structures](#classes_et_structures)
+    * [Commentaires](#commentaires)
+    * [Types primitifs](#types_primitifs)
+    * [Case mémoire](#case_memoire)
+    * [Tableau](#tableau)
+    * [Structures de contrôle](#structures_de_controle)
+    * [Références](#references)
+    * [Passage par valeur](#passage_par_valeur)
+    * [Adresses](#adresses)
+    * [Allocation dynamique](#allocation_dynamique)
+    * [Classes et structures](#classes_et_structures)
+
+<a name="recuperer_le_code"></a>
+## Récupérer le code
+
+Ce TP vous est fourni sous la forme d'un dépôt utilisant un *outil de
+versionnement* : git. Les outils de versionnement sont incontournables dans le
+monde de la programmation. Ils permettent d'éviter la perte de données, de
+suivre l'avancée du travail, de collaborer facilement à plusieurs sur un même
+code.
+
+<a name="forge"></a>
+### Forge de l'université
+
+L'université met à votre disposition une [forge](https://forge.univ-lyon1.fr)
+sur laquelle vous vous trouvez, via le logiciel [gitlab](https://gitlab.com). La
+forge est un outil en ligne pour gérer des dépôts git. Elle vous fournit en plus
+la possibilité de consulter le dépôt en ligne, des outils de suivi de bugs, etc. 
+
+Sur cette forge, vous avez la possibilité de créer autant de dépôts que vous le
+souhaitez, pour vos codes, vos rapports, ou vos projets personnels. Par rapport
+à [github](https://github.com), vous pouvez avoir gratuitement autant de projets
+privés que vous le voulez et expérimenter sans que tout soit public.
+
+<a name="fork">
+### Duplication du dépôt
+
+![Interface Gitlab](Images/gitlab_buttons.png)
+
+Vous pouvez vous contenter de cloner le dépôt, ou de le dupliquer sur la forge
+pour avoir votre propre version que vous pouvez faire évoluer et sauvegarder.
+Pour dupliquer le projet, utilisez le petit bouton <kbd>Fork</kbd> sous le titre
+du projet. Cette action créera un nouveau dépôt dans votre espace personnel.
+
+Une fois le dépôt cloné, sous le nom du projet, vous avez une adresse. À gauche
+de cette adresse, sélectionnez HTTPS plutôt que SSH, sauf si vous avez
+l'habitude de configurer d'utiliser SSH et de configurer des clés. Copiez
+l'adresse proposée.
+
+Dans votre terminal, naviguez là où vous souhaitez travailler, et utiliser la
+commande
+
+```bash
+git clone <adresse>
+```
+
+Un dossier sera créé et vous pouvez commencer à travailler.
+
+<a name="git_base"></a>
+### Sauvegarder votre travail
+
+Git est un outil permettant de *versionner* votre travail. À tout moment,
+lorsque vous le souhaitez (et de préférence souvent), vous pouvez créer un
+instantanné de l'état de votre travail. Quoi que vous fassiez par la suite, il
+vous sera toujours possible de revenir à cet version. Cet instantanné est un
+*commit*, et se génère avec la commande du même nom.
+
+Commencez par choisir les fichiers dont vous voulez sauvegarder l'état. Vous
+pouvez ajouter un fichier au commit via la commande
+
+```bash
+git add <votre fichier>
+```
+
+Une fois les fichiers choisis, vous pouvez taper
+
+```bash
+git status
+```
+
+pour avoir un récapitulatif de ce qui sera sauvegardé au prochain commit. Une
+fois tous les fichiers sélectionnés, il vous reste à créer le commit :
+
+```bash
+git commit -m "Message du commit"
+```
+
+Votre commit est créé, vous pouvez continuer à travailler. Faites en sorte que
+le message soit explicite, car il vous permettra d'identifier le commit si vous
+avez besoin d'y revenir.
+
+Vos commits sont des sauvegardes *locales*. Les autres personnes ayant accès à
+votre dépôt ne peuvent pour l'instant pas les voir. Si votre disque dur crame,
+votre travail reste perdu. Pour envoyer vos commits sur la forge, et ainsi les
+rendre disponibles aux autres, et les sauvegarder plus solidement, vous pouvez
+ensuite réaliser un *push* via :
+
+```bash
+git push
+```
+
+Cette commande vous demandera éventuellement de répondre à quelques questions la
+première fois pour renseigner votre identiré, et dans tous les cas vous
+demandera vos identifiants universitaires. Une fois votre travail poussé sur la
+forge, vous pouvez vérifier sur l'interface que vos fichiers ont bien été mis à
+jour.
+
+<a name="integration_continue">
+### Intégration continue
+
+Si vous êtes déjà dépassé par ce qui précède, passez à la suite. Sinon, le dépôt
+que vous venez de cloner est configuré pour l'*intégration continue*. C'est une
+technique qui consiste à définir une batterie de tests sur votre code qui sera
+lancée à chaque nouvelle version, pour s'assurer que rien n'a été cassé. À
+chaque fois que vous pousserez votre travail sur la forge, les tests seront
+lancés, et vos commits seront annotés avec le résultat (réussite ou échec). Vous
+pouvez trouver les informations sur ces tests en cliquant sur "CI / CD" dans e
+menu de gauche. Actuellement, deux tests sont configurés : la compilation et
+l'éxécution. Vous pouvez en ajouter à votre guise.
+
+<a name="listes_chainees"></a>
+## Listes chaînées
+
+Une liste chaînée est une structure de données dont le but est de stocker une
+séquence de valeurs. La liste est composée d'un ensemble de *cellules*. Chaque
+cellule contient une valeur, ainsi que l'adresse de la cellule suivante. Une
+liste est généralement représentée par le schéma ci dessous.
+
+![Liste chaînée](/Images/liste.png)
+
+L'intérêt de cette structure de données est de pouvoir facilement rajouter des
+valeurs en tête de liste.
+
+<a name="classe_cellule"></a>
+### Classe cellule
+
+Une cellule d'une liste chaînée contient une valeur et l'adresse de la cellule
+suivante. Par convention, lorsque la cellule est la dernière de sa liste, vous
+utiliserez l'adresse `nullptr` comme adresse de cellule suivante.
+
+Dans le cadre de ce TP de remise en forme, vous considérerez que la valeur
+contenue dans la cellule est un entier.
+
+<a name="classe_liste"></a>
+### Classe liste
+
+La classe liste n'est pas forcément nécessaire selon l'implémentation des listes
+chaînées. Elle est utile lorsque vous souhaitez conserver des informations
+globales sur la liste, comme le nombre d'éléments insérés par exemple. Pour la
+suite, il vous sera utile d'avoir une telle classe. La classe liste contiendra
+donc pour l'instant l'adresse de la première cellule de la liste, ainsi que le
+nombre d'éléments de la liste.
+
+<a name="fonctionnalites"></a>
+### Outils sur les listes
+
+Votre implémentation des listes chaînées devra fournir :
+
+* la construction par défaut (liste vide) ;
+* l'ajout d'un nouvel élément en tête de la liste ;
+* la suppression d'un élément en tête de liste ;
+* la consultation de la taille de la liste ;
+* la consultation de la tête de la liste ;
+* la recherche d'un élément dans la liste ;
+* l'affichage de toute la liste ;
+* la destruction d'une liste et de tout son contenu.
+
+<a name="recopie"></a>
+### Recopie
+
+Votre liste manipule des cellules, dont elle se condière comme propriétaire. En
+particulier, lors de sa destruction ou du retrait d'éléments, votre liste
+supprime toutes ses cellules avec elle.
+
+Ce comportement vous posera problème si vous tentez de recopier votre liste. Par
+exemple :
+
+```Cpp
+Liste l1;
+l1.ajouter_en_tete(10) ;
+
+Liste l2 = l1 ;
+l2.ajouter_en_tete(20) ;
+
+l1.supprimer_en_tete() ;
+```
+
+Étudiez cet exemple, et déterminez si ce programme risque de poser problème par
+la suite. Plus subtil encore :
+
+```Cpp
+
+void supprimer_tete(Liste l) {
+  l.supprimer_en_tete() ;
+}
+
+...
+
+Liste l ;
+l.ajouter_en_tete(10) ;
+supprimer_tete(l) ;
+
+```
+
+Si vous ne voyez pas le problème, appelez votre encadrant pour vous aider à le
+comprendre. Si vous pensez avoir compris les problèmes, vérifiez auprès de votre
+encadrant.
+
+#### Constructeur par copie
+
+Le constructeur par copie est un constructeur appelé pour créer une *nouvelle*
+liste en recopiant une liste existante. La syntaxe est la suivante :
+
+```Cpp
+class Liste {
+  public :
+    Liste(const Liste& autre) ;
+}
+```
+
+Notez bien le mot clé `const` et la référence `&`. Le premier assure que la
+liste fournie en paramètre ne sera pas modifiée. Le second fait que la liste
+fournie en paramètre n'est pas recopiée, mais simplement passée par référence.
+
+Une fois cette fonction écrite, vérifiez qu'elle est bien appelée lorsque vous
+réalisez le test suivant :
+
+```Cpp
+Liste l1 ;
+l1.ajouter_en_tete(10) ;
+Liste l2 = l ;
+Liste l3(l) ;
+```
+
+#### Opérateur d'affectation
+
+L'opérateur d'affectation sert à permettre à une liste *déjà créée* de remplacer
+son contenu par celui d'une autre liste fournie. La syntaxe de cet opérateur est
+la suivante :
+
+```Cpp
+class Liste {
+  public :
+    Liste& operator=(const Liste& autre) ;
+}
+```
+
+Une fois cette fonction écrite, vérifiez qu'elle est bien appelée lorsque vous
+réalisez le test suivant :
+
+```Cpp
+Liste l1 ;
+l1.ajouter_en_tete(10) ;
+
+Liste l2 ;
+l2.ajouter_en_tete(20) ;
+l2 = l1 ;
+```
+
+#### Règle de trois
+
+En `C++`, il existe une règle de bonne pratique pour du code sain appelée la
+[règle de trois](https://en.wikipedia.org/wiki/Rule_of_three_(C%2B%2B_programming)) 
+(de cinq avec C++11) En résumé cette règle stipule que lorsque vous estimez
+nécessaire d'écrire un destructeur pour votre structure de données, c'est que
+votre structure de données est probablement propriétaire de ressources (ici les
+cellules) et que la gestion de ces ressources implique très probablement la
+nécessité d'écrire un constructeur par copie et un opérateur d'affectation (avec
+les deux variantes par déplacement en C++11 d'où le 5).
+
+Il est également possible de s'astreindre à une *régle du zéro* en utilisant des
+fonctionnalités fine de gestion de mémoire du `C++`, documentez vous pour en
+savoir plus.
+
+<a name="ajout_en_queue"></a>
+### Ajout en queue
+
+Les listes chaînées simples permettent facilement l'ajout et la suppression en
+tête. Ici, *facilement* signifie que ces opérations ne nécessitent pas de
+parcourir toute la liste, mais simplement de réaliser un nombre constant
+d'opérations, qui ne dépend donc pas de la taille de la liste.
+
+L'ajout en queue de liste par contre n'est possible qu'en parcourant toute la
+liste jusqu'à trouver le dernier élément. Une fois cet élément trouvé, il est
+alors possible de rajouter un nouvel élément en queue.
+
+Modifiez votre structure de données pour rendre l'ajout en queue également en
+temps constant. Attention à gérer correctement les cas particuliers, par exemple
+lorsque la liste est vide.
+
+<a name="serpent"></a>
+### Serpent
+
+Avec les opérations d'ajout en tête et d'ajout en queue, les listes chaînées
+sont adaptées pour réaliser un jeu de *serpent*. Une base vous est fournie, à
+vous de l'étendre pour ajouter l'apparition de bonus à manger, des niveaux plus
+complexes, l'éventuel changement de niveau, le score, ...
 
 <a name="rappels"></a>
 ## Rappels

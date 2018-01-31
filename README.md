@@ -257,8 +257,8 @@ réalisez le test suivant :
 ```Cpp
 Liste l1 ;
 l1.ajouter_en_tete(10) ;
-Liste l2 = l ;
-Liste l3(l) ;
+Liste l2 = l1 ;
+Liste l3(l1) ;
 ```
 
 #### Opérateur d'affectation

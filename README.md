@@ -141,6 +141,14 @@ l'éxécution. Vous pouvez en ajouter à votre guise.
 <a name="listes_chainees"></a>
 ## Listes chaînées
 
+Dans un premier temps, vous travaillerez sur les fichiers :
+
+* Src/cellule.hpp/cpp
+* Src/liste.hpp/cpp
+* Src/test_liste.hpp/cpp
+
+Un Makefile vous est fourni et préparé pour compiler le code.
+
 Une liste chaînée est une structure de données dont le but est de stocker une
 séquence de valeurs. La liste est composée d'un ensemble de *cellules*. Chaque
 cellule contient une valeur, ainsi que l'adresse de la cellule suivante. Une
@@ -315,6 +323,10 @@ Avec les opérations d'ajout en tête et d'ajout en queue, les listes chaînées
 sont adaptées pour réaliser un jeu de *serpent*. Une base vous est fournie, à
 vous de l'étendre pour ajouter l'apparition de bonus à manger, des niveaux plus
 complexes, l'éventuel changement de niveau, le score, ...
+
+Vous pouvez désormais commencer à examiner les autres fichiers. Le fichier
+contenant le programme principal du jeu est `jeu_serpent.cpp`. Sa compilation
+est réalisée via `make jeu_serpent`.
 
 <a name="rappels"></a>
 ## Rappels

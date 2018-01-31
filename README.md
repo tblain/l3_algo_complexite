@@ -855,11 +855,11 @@ float Fusee::reserves_carburant() const {
   /* ... */
 }
 
-void decoller() {
+void Fusee::decoller() {
   /* ... */
 }
 
-void disco_mode() {
+void Fusee::disco_mode() {
   /* ... */
 }
 

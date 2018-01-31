@@ -4,6 +4,7 @@
 #include <iostream>
 #include <ncurses.h>
 #include <unistd.h>
+#include <stdexcept>
 
 int main() {
   /* vitesse */

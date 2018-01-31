@@ -147,7 +147,8 @@ Dans un premier temps, vous travaillerez sur les fichiers :
 * Src/liste.hpp/cpp
 * Src/test_liste.hpp/cpp
 
-Un Makefile vous est fourni et préparé pour compiler le code.
+Un Makefile vous est fourni et préparé pour compiler le code. Examinez ces
+fichiers, et ajoutez-y votre code.
 
 Une liste chaînée est une structure de données dont le but est de stocker une
 séquence de valeurs. La liste est composée d'un ensemble de *cellules*. Chaque

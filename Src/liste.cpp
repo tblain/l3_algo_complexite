@@ -10,11 +10,22 @@ Liste::Liste() {
 }
 
 Liste::Liste(const Liste& autre) {
-  /* votre code ici */
+	int nbe2 = autre.nbe;
+	int i = 0;
+	const Cellule* curr_cell = autre.tete();
+	std::cout << "nbe2 " << nbe2 << std::endl;
+
+	while(i < nbe2) {
+	  std::cout << "valeur " << curr_cell->valeur << std::endl;
+	  ajouter_en_tete(curr_cell->valeur);
+	  curr_cell = curr_cell->next_cell;
+	  i++;
+	}
 }
 
 Liste& Liste::operator=(const Liste& autre) {
-  /* votre code ici */
+	int nbe2 = autre.nbe;
+	std::cout << "nbe2 " << nbe2 << std::endl;
   return *this ;
 }
 
@@ -23,89 +34,93 @@ Liste::~Liste() {
 }
 
 void Liste::ajouter_en_tete(int valeur) {
-	if(nbe == 0) {
-		head = new Cellule(valeur);
-		tail = head;
-		nbe++;
+	if(this->nbe == 0) {
+		//std::cout << "first cell" << std::endl;
+		Cellule* cell = new Cellule(valeur);
+		this->head = cell;
+		this->tail = head;
+		this->nbe++;
 	} else {
-		std::cout << "old head in " << head->valeur << std::endl;
-		Cellule cell(valeur);
-		this->head->next_cell = &cell;
-		this->head = &cell;
-		std::cout << "head in: " << this->tete()->valeur << " | cell in: " << cell.valeur << " | queue in: " << queue()->valeur << " | queue next " << queue()->next_cell->valeur  << std::endl;
+		//std::cout << "old head in: " << this->tete()->valeur << " | queue in: " << this->queue()->valeur << std::endl;
+		Cellule* cell = new Cellule(valeur);
+		cell->next_cell = head;
+		head = cell;
+		//std::cout << "between head in: " << this->tete()->valeur << " | queue in: " << this->queue()->valeur << std::endl;
 		this->nbe++;
 	}
+		//std::cout << "head in: " << this->tete()->valeur << " | queue in: " << this->queue()->valeur << std::endl;
 }
 
 void Liste::ajouter_en_queue(int valeur) {
 	if(nbe == 0) {
-		head = new Cellule(valeur);
-		tail = head;
-		nbe++;
-	} else {
 		Cellule cell(valeur);
-		cell.next_cell = tail;
-		tail = &cell;
-		nbe++;
+		this->head = &cell;
+		this->tail = &cell;
+		this->nbe++;
+	} else {
+		//std::cout << "head in: " << this->tete()->valeur << " | queue in: " << queue()->valeur << " | queue next " << queue()->next_cell->valeur  << std::endl;
+		Cellule cell(valeur);
+		this->tail->next_cell = &cell;
+		this->tail = this->queue()->next_cell;
+		this->nbe++;
 	}
 }
 
 void Liste::supprimer_en_tete() {
-  head = nullptr;
-  nbe--;
+  this->head = this->tete()->next_cell;
+  this->nbe--;
 }
 
 Cellule* Liste::tete() {
-  return head;
+  return this->head;
 }
 
 const Cellule* Liste::tete() const {
-  return head;
+  return this->head;
 }
 
 Cellule* Liste::queue() {
-  return tail ;
+  return this->tail ;
 }
 
 const Cellule* Liste::queue() const {
-  return tail ;
+  return this->tail ;
 }
 
 int Liste::taille() const {
-  return nbe ;
+  return this->nbe ;
 }
 
 Cellule* Liste::recherche(int valeur) {
   int i = 0;
-  Cellule* curr_cell = tail;
-  Cellule* cell_search = nullptr;
-	  
-  while(i < nbe || cell_search != nullptr) {
+  Cellule* curr_cell = this->tete();
+
+
+  while(i < nbe) {
     if(curr_cell->valeur == valeur) {
-      cell_search = curr_cell;
+      return curr_cell;
     }
 
     curr_cell = curr_cell->next_cell;
     i++;
   }
-  return cell_search ;
+  return nullptr ;
 }
 
 const Cellule* Liste::recherche(int valeur) const {
-
   int i = 0;
-  Cellule* curr_cell = tail;
-  Cellule* cell_search = nullptr;
-	  
-  while(i < nbe || cell_search != nullptr) {
+  const Cellule* curr_cell = this->tete();
+
+
+  while(i < nbe) {
     if(curr_cell->valeur == valeur) {
-      cell_search = curr_cell;
+      return curr_cell;
     }
 
     curr_cell = curr_cell->next_cell;
     i++;
   }
-  return cell_search ;
+  return nullptr ;
 }
 
 void Liste::afficher() const {

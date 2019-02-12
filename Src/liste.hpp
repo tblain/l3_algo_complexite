@@ -6,6 +6,9 @@
 class Liste {
 
   public :
+    Cellule* tail;
+    Cellule* head;
+    int nbe = 0;
 
     /* construction d'une liste vide */
     Liste() ;

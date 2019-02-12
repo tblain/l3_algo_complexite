@@ -2,9 +2,11 @@
 #define LIFAP6_LISTE_CELLULE_HPP
 
 class Cellule {
-
-  /* votre code ici */
-
+  public:
+    int valeur;
+    Cellule* next_cell;
+    Cellule(int _valeur);
+    Cellule();
 } ;
 
 #endif

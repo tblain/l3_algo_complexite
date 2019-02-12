@@ -4,7 +4,9 @@
 #include <cassert>
 
 Liste::Liste() {
-  /* votre code ici */
+  Cellule* head();
+  Cellule* tail();
+  nbe = 0;
 }
 
 Liste::Liste(const Liste& autre) {
@@ -21,52 +23,91 @@ Liste::~Liste() {
 }
 
 void Liste::ajouter_en_tete(int valeur) {
-  /* votre code ici */
+	if(nbe == 0) {
+		head = new Cellule(valeur);
+		tail = head;
+		nbe++;
+	} else {
+		std::cout << "old head in " << head->valeur << std::endl;
+		Cellule cell(valeur);
+		this->head->next_cell = &cell;
+		this->head = &cell;
+		std::cout << "head in: " << this->tete()->valeur << " | cell in: " << cell.valeur << " | queue in: " << queue()->valeur << " | queue next " << queue()->next_cell->valeur  << std::endl;
+		this->nbe++;
+	}
 }
 
 void Liste::ajouter_en_queue(int valeur) {
-  /* votre code ici */
+	if(nbe == 0) {
+		head = new Cellule(valeur);
+		tail = head;
+		nbe++;
+	} else {
+		Cellule cell(valeur);
+		cell.next_cell = tail;
+		tail = &cell;
+		nbe++;
+	}
 }
 
 void Liste::supprimer_en_tete() {
-  /* votre code ici */
+  head = nullptr;
+  nbe--;
 }
 
 Cellule* Liste::tete() {
-  /* votre code ici */
-  return nullptr ;
+  return head;
 }
 
 const Cellule* Liste::tete() const {
-  /* votre code ici */
-  return nullptr ;
+  return head;
 }
 
 Cellule* Liste::queue() {
-  /* votre code ici */
-  return nullptr ;
+  return tail ;
 }
 
 const Cellule* Liste::queue() const {
-  /* votre code ici */
-  return nullptr ;
+  return tail ;
 }
 
 int Liste::taille() const {
-  /* votre code ici */
-  return 0 ;
+  return nbe ;
 }
 
 Cellule* Liste::recherche(int valeur) {
-  /* votre code ici */
-  return nullptr ;
+  int i = 0;
+  Cellule* curr_cell = tail;
+  Cellule* cell_search = nullptr;
+	  
+  while(i < nbe || cell_search != nullptr) {
+    if(curr_cell->valeur == valeur) {
+      cell_search = curr_cell;
+    }
+
+    curr_cell = curr_cell->next_cell;
+    i++;
+  }
+  return cell_search ;
 }
 
 const Cellule* Liste::recherche(int valeur) const {
-  /* votre code ici */
-  return nullptr ;
+
+  int i = 0;
+  Cellule* curr_cell = tail;
+  Cellule* cell_search = nullptr;
+	  
+  while(i < nbe || cell_search != nullptr) {
+    if(curr_cell->valeur == valeur) {
+      cell_search = curr_cell;
+    }
+
+    curr_cell = curr_cell->next_cell;
+    i++;
+  }
+  return cell_search ;
 }
 
 void Liste::afficher() const {
-  /* votre code ici */
+	std::cout << "afficher " << this->tete()->valeur << std::endl;
 }

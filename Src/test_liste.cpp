@@ -9,11 +9,16 @@ int main() {
 
   Liste l1 ;
   l1.ajouter_en_tete(10) ;
+  std::cout << "head " << l1.tete()->valeur << " | tail " << l1.queue()->valeur << std::endl ;
   l1.ajouter_en_tete(11) ;
+  std::cout << "head " << l1.tete()->valeur << " | tail " << l1.queue()->valeur << std::endl ;
+  l1.ajouter_en_tete(12) ;
   std::cout << "attendu : [ 11 10 ]" << std::endl ;
+  std::cout << "head " << l1.tete()->valeur << " | tail " << l1.queue()->valeur << std::endl ;
   l1.afficher() ; // [ 11 10 ]
-  assert(l1.tete()->valeur == 11) ;
+  std::cout << "parcour: " << l1.queue()->valeur << " " << l1.queue()->next_cell->valeur << "" << l1.queue()->next_cell->valeur << std::endl;
   assert(l1.queue()->valeur == 10) ;
+  assert(l1.tete()->valeur == 11) ;
   assert(l1.recherche(11)) ;
   assert(l1.recherche(10)) ;
   assert(!l1.recherche(12)) ;

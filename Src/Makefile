@@ -5,6 +5,8 @@ CXX      = g++
 SOURCES = 
 SOURCES += cellule.cpp
 SOURCES += liste.cpp
+SOURCES += skipliste.cpp
+SOURCES += scell.cpp
 
 OBJECTS = $(SOURCES:.cpp=.o)
 

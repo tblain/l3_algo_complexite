@@ -1,1 +1,1 @@
-test_liste.o: test_liste.cpp liste.hpp cellule.hpp
+test_liste.o: test_liste.cpp liste.hpp cellule.hpp scell.hpp

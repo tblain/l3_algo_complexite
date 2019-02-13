@@ -1,0 +1,1 @@
+skipliste.o: skipliste.cpp
